@@ -8,3 +8,9 @@ Doom WAD Editor made with Odin
 - raylib
 - raygui
 - [tinyfiledialogs](https://github.com/duffn/odin-tinyfiledialogs)
+
+## Building
+
+To build, use:
+
+`odin build . -define:RAYLIB_SHARED=true`
