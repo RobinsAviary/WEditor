@@ -7,5 +7,4 @@ Doom WAD Editor made with Odin
 - [Wodin](https://github.com/RobinsAviary/Wodin)
 - raylib
 - raygui
-- SDL2 (basic modal dialogs)
-- [nativefiledialog](https://github.com/ivansouzamf/nativefiledialog-odin)
+- [tinyfiledialogs]([https://github.com/ivansouzamf/nativefiledialog-odin](https://github.com/duffn/odin-tinyfiledialogs))
