@@ -3,7 +3,6 @@ package weditor
 import rl "vendor:raylib"
 import "vendor:raylib/rlgl"
 import doom "shared:wodin/wodin"
-import nfd "shared:nativefiledialog"
 import "core:fmt"
 import "core:strings"
 import "core:math"
@@ -92,8 +91,6 @@ reset_scroll_bar :: proc() {
 
 init :: proc() {
 	append(&state.files, File {filename=strings.clone("untitled.wad")})
-
-	nfd.Init()
 	
 	rl.SetConfigFlags({.WINDOW_RESIZABLE})
 	rl.InitWindow(640, 480, PROGRAM_NAME)
@@ -117,12 +114,20 @@ draw :: proc() {
 
 	rl.GuiEnableTooltip()
 	rl.GuiSetTooltip("Create new WAD")
-	if rl.GuiButton({0, 24, 24, 24}, "#8#") do create_wad()
+	if rl.GuiButton({0, 24, 24, 24}, "#8#") {
+		create_wad()
+		
+	}
 	rl.GuiSetTooltip("Load WAD")
 	if rl.GuiButton({24, 24, 24, 24}, "#5#") do open_wad()
 	rl.GuiSetTooltip("Save WAD")
 	if rl.GuiButton({48, 24, 24, 24}, "#6#") do save_wad()
 	rl.GuiDisableTooltip()
+	viewer_buttons_offset := rl.Vector2 {lump_viewer_size.x, scroll_offset}
+	rl.GuiButton({viewer_buttons_offset.x, viewer_buttons_offset.y, 24, 24}, "#8#")
+	rl.GuiButton({viewer_buttons_offset.x, viewer_buttons_offset.y + 24, 24, 24}, "#9#")
+	rl.GuiButton({viewer_buttons_offset.x, viewer_buttons_offset.y + 48, 24, 24}, "#117#")
+	rl.GuiButton({viewer_buttons_offset.x, viewer_buttons_offset.y + (24 * 3), 24, 24}, "#116#")
 
 	scalar := clamp((scroll.y * -1) / scroll_max, 0, 1)
 
@@ -155,8 +160,6 @@ unload_everything :: proc() {
 	}
 
 	rl.CloseWindow()
-
-	nfd.Quit()
 
 	delete(state.files)
 }
